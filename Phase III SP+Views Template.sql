@@ -1,6 +1,4 @@
-
--- CS4400: Introduction to Database Systems: Monday, October 13, 2025
--- ER Management System Stored Procedures & Views Template [1]
+-- Emergency Room Management Database: reporting views and stored procedures
 
 /* This is a standard preamble for most of our scripts.  The intent is to establish
 a consistent environment for the database behavior. */
@@ -44,9 +42,9 @@ left join person doc on doc.ssn = dr.ssn
 -- -----------------------------------------------------------------------------
 /* This view provides a comprehensive overview of patient appointments
 along with recorded symptoms. Each row displays the patient’s SSN, their full name 
-(HINT: the CONCAT function can be useful here), the appointment time, appointment date, 
+, the appointment time, appointment date, 
 and a list of symptoms recorded during the appointment with each symptom separated by a 
-comma and a space (HINT: the GROUP_CONCAT function can be useful here). */
+comma and a space . */
 -- -----------------------------------------------------------------------------
 create or replace view symptoms_overview_view as
 select 
@@ -71,7 +69,7 @@ group by
 their ssn, their "staffType" being either "nurse" or "doctor", their "licenseInfo" being either
 their licenseNumber or regExpiration, their "jobInfo" being either their shiftType or 
 experience, a list of all departments they work in in alphabetical order separated by a
-comma and a space (HINT: the GROUP_CONCAT function can be useful here), and their "numAssignments" 
+comma and a space , and their "numAssignments" 
 being either the number of rooms they're assigned to or the number of appointments they're assigned to. */
 -- -----------------------------------------------------------------------------
 create or replace view medical_staff_view as
@@ -117,8 +115,7 @@ group by w.deptId
 “Outstanding charges” is the sum of appointment costs and order costs. It also 
 displays a patient’s first name, last name, SSN, funds, number of appointments, 
 and number of orders. Ensure there are no null values if there are no charges, 
-appointments, orders for a patient (HINT: the IFNULL or COALESCE functions can be 
-useful here).  */
+appointments, orders for a patient .  */
 -- -----------------------------------------------------------------------------
 create or replace view outstanding_charges_view as
 select pe.firstName, pe.lastName, pe.ssn, pa.funds, IFNULL(appt_cost , 0) + IFNULL(order_cost, 0) as 'Outstanding charges', IFNULL(appt_table.num_appts,0) as num_appts, IFNULL(order_table.num_orders,0) as num_orders
@@ -215,7 +212,7 @@ relevant data to the appointment table if conditions are met. Ensure that all in
 are non-null and reference an existing patient, and that the cost provided is non‑negative. 
 Do not charge the patient, but ensure that they have enough funds to cover their current outstanding 
 charges and the cost of this appointment.
-HINT: You should complete outstanding_charges_view before this procedure! */
+Uses outstanding_charges_view to evaluate patient charges. */
 -- -----------------------------------------------------------------------------
 drop procedure if exists book_appointment;
 delimiter /​/
@@ -286,7 +283,7 @@ Ensure that the priority is within the valid range.priority If the order is a pr
 the dosage is positive. Ensure that the order is never recorded as both a lab work and a prescription.
 The order date inserted should be the current date, and the previous procedure lists a function that
 will be required to use in this procedure as well.
-HINT: You should complete outstanding_charges_view before this procedure! */
+Uses outstanding_charges_view to evaluate patient charges. */
 -- -----------------------------------------------------------------------------
 drop procedure if exists place_order;
 delimiter /​/
@@ -733,7 +730,7 @@ delimiter ;
 
 -- remove_staff()
 -- Lucky you, we provided this stored procedure to you because it was more complex
--- than we would expect you to implement. You will need to call this procedure
+-- this implementation. The procedure is used as a supporting operation
 -- in the next procedure!
 -- -----------------------------------------------------------------------------
 /* This stored procedure removes a given staff member. If the staff member is a 
