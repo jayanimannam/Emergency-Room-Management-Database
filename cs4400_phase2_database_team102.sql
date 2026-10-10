@@ -1,16 +1,5 @@
--- CS4400: Introduction to Database Systems (Fall 2025)
--- Phase II: Create Table & Insert Statements [v0] Monday, September 15, 2025 @ 17:00 EST
-
--- Team __
--- Jayani Mannam  (jmannam3@gatech.edu)
--- Neha Kunche (nkunche3@gatech.edu)
--- Amrin Khimani  (akhimani9@gatech.edu)
-
--- Directions:
--- Please follow all instructions for Phase II as listed in the instructions document.
--- Fill in the team number and names and GT usernames for all members above.
--- Create Table statements must be manually written, not taken from a SQL Dump file.
--- This file must run without error for credit.
+-- Emergency Room Management Database: schema and sample records
+-- Contributors: Jayani Mannam, Neha Kunche, Amrin Khimani
 
 /* Standard preamble */
 
